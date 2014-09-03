@@ -1,37 +1,31 @@
 #!/usr/bin/env python
-from RPi_AS3935 import RPi_AS3935
+from BBB_WINDMBED import BBB_WINDMBED
 
-import RPi.GPIO as GPIO
+import Adafruit_BBIO.GPIO as GPIO
 import time
 from datetime import datetime
 
-GPIO.setmode(GPIO.BCM)
+//GPIO.setmode(GPIO.BCM)
 
-# Rev. 1 Raspberry Pis should leave bus set at 0, while rev. 2 Pis should set
-# bus equal to 1. The address should be changed to match the address of the
+#The address should be changed to match the address of the
 # sensor. (Common implementations are in README.md)
-sensor = RPi_AS3935(address=0x00, bus=0)
-
-sensor.calibrate(tun_cap=0x0F)
-sensor.set_indoors(True)
-sensor.set_noise_floor(0)
+sensor = BBB_WINDMBED(address=0x52, bus=0)
 
 def handle_interrupt(channel):
     time.sleep(0.003)
     global sensor
-    reason = sensor.get_interrupt()
     if reason == 0x01:
-        print "Noise level too high - adjusting"
-        sensor.raise_noise_floor()
+        print "Just testing 0x01"
+//        sensor.raise_noise_floor()
     elif reason == 0x04:
-        print "Disturber detected - masking"
-        sensor.set_mask_disturber(True)
+        print "Just testing 0x04"
+//        sensor.set_mask_disturber(True)
     elif reason == 0x08:
         now = datetime.now().strftime('%H:%M:%S - %Y/%m/%d')
         distance = sensor.get_distance()
-        print "We sensed lightning!"
-        print "It was " + str(distance) + "km away. (%s)" % now
-        print ""
+        print "Just testing 0x08"
+//        print "It was " + str(distance) + "km away. (%s)" % now
+//        print ""
 
 pin = 17
 
