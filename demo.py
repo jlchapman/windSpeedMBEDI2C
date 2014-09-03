@@ -11,6 +11,8 @@ from datetime import datetime
 # sensor. (Common implementations are in README.md)
 sensor = BBB_WINDMBED(address=0x52, bus=0)
 
+print "did the sensor thing")
+
 //def handle_interrupt(channel):
     time.sleep(0.003)
 //    global sensor
